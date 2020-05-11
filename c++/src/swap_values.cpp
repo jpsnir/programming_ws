@@ -21,19 +21,20 @@ int main(int argc, char **argv)
   swapP(&a,&b);
   cout<<"Value of a ="<<a<<" and  b ="<<b<<" inside main function after swap using pointers"<<endl;
   cout<<"xxxxxxxxxxxxxxxxxxxxxxxxx Swap by pointer complete xxxxxxxxxxxxxxxxxxxxxxxxx\ns";
+  return(0);
 }
-void swapR(int& a, int& b)
+void swapR(int& c, int& d)
 {
     int tmp;
-    tmp = a;
-    a = b;
-    b = tmp;
+    tmp = c;
+    c = d;
+    d = tmp;
 }
-void swapP(int *a, int *b)
+void swapP(int *c, int *d)
 // Swaps the values of two variables using pointers
 {
     int tmp;
-    tmp = *a;
-    *a = *b;
-    *b = tmp;
+    tmp = *c;
+    *c = *d;
+    *d = tmp;
 }
