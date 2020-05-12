@@ -17,7 +17,7 @@ int top_grade;
 
 void readNumber(int& inputNumber);
 void readString(string& input);
-
+float computeAverage(int array[],int& N);
 int main(int argc,char** argv)
 {
     int inputNumber = 0;
@@ -35,9 +35,9 @@ int main(int argc,char** argv)
 
     for(int i = 0; i<number_of_students;i++)
     {
-        cout<<"Enter last name of student:";
+        cout<<"Enter last name of student "<<i+1<<" :";
         readString(lastnames[i]);
-        cout<<"Enter grades of student";
+        cout<<"Enter grade of student "<<i+1<<" :";
         readNumber(grades[i]);
     }
 
@@ -45,7 +45,16 @@ int main(int argc,char** argv)
     {
         cout<<lastnames[i]<<" has marks = "<<grades[i]<<endl;
     }
+    cout<<"The average marks are : "<<computeAverage(grades,number_of_students)<<endl;
     return(0);
+}
+
+float computeAverage(int array[],int& N)
+{
+    float sum = 0;
+    for(int i = 0; i<N;i++)
+        sum += array[i];
+    return sum/N;
 }
 
 void readNumber(int& inputNumber)
@@ -58,7 +67,7 @@ void readNumber(int& inputNumber)
         stringstream myStream(inputString);
         if (myStream >> inputNumber)
             break;
-        cout << "Invalid entry" << endl<<endl;
+        cout << "Invalid entry. You entered a character" << endl<<endl;
         cout << "Enter again:";
     }
     cout << "You entered: " << inputNumber << endl << endl;
@@ -68,3 +77,5 @@ void readString(string& input)
 {
     getline(cin,input);
 }
+
+//int max(int)
