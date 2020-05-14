@@ -1,3 +1,9 @@
+// Swap values of two integers using pass by pointer and pass by reference
+// Created by Jagatpreet Singh Nir on 5/11/20.
+// NUID: 001406635
+// Special compile instructions:
+
+
 #include <iostream>
 
 using namespace std;
@@ -24,6 +30,7 @@ int main(int argc, char **argv)
   return(0);
 }
 void swapR(int& c, int& d)
+// Swaps the values of two variables using reference
 {
     int tmp;
     tmp = c;
