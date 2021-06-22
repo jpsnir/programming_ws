@@ -1,0 +1,49 @@
+%YAML:1.0
+---
+Total_feature_tracks: 0
+Dataset: dummy
+img_rows: 512
+img_cols: 640
+max_length: 10
+cdf: [ 1, 2, 3, 4, 5, 6, 7, 9, 0, 0 ]
+tracks:
+   t1:
+      start_frame: 4
+      track_length: 2
+      keypoints: [ 115, 105, 255, 81 ]
+   t2:
+      start_frame: 7
+      track_length: 3
+      keypoints: [ 461, 297, 427, 186, 379, 498 ]
+   t3:
+      start_frame: 4
+      track_length: 2
+      keypoints: [ 66, 124, 376, 84 ]
+   t4:
+      start_frame: 2
+      track_length: 4
+      keypoints: [ 269, 487, 90, 374, 483, 302, 415, 51 ]
+   t5:
+      start_frame: 10
+      track_length: 3
+      keypoints: [ 178, 358, 567, 13, 216, 49 ]
+   t6:
+      start_frame: 2
+      track_length: 3
+      keypoints: [ 93, 293, 279, 261, 617, 88 ]
+   t7:
+      start_frame: 9
+      track_length: 5
+      keypoints: [ 50, 427, 326, 205, 180, 155, 273, 84, 130, 14 ]
+   t8:
+      start_frame: 7
+      track_length: 2
+      keypoints: [ 445, 289, 7, 476 ]
+   t9:
+      start_frame: 7
+      track_length: 1
+      keypoints: [ 289, 62 ]
+   t10:
+      start_frame: 4
+      track_length: 3
+      keypoints: [ 615, 508, 385, 62, 407, 126 ]

@@ -1,0 +1,17 @@
+find_package(OpenCV REQUIRED)
+
+if(OpenCV_FOUND)
+    message("opencv directory is :" ${OpenCV_INCLUDE_DIRS})
+else()
+    message("OPENCV not FOUND")
+endif()
+set(opencv_concepts_INCLUDE_DIRS include/)
+
+set(opencv_concepts_SRCS src/Visualizer.cpp)
+include_directories(${opencv_concepts_INCLUDE_DIRS})
+add_executable(test_visualizer apps/test_visualizer.cpp ${opencv_concepts_SRCS})
+add_executable(map2yaml apps/TrackFileWriter.cpp)
+add_executable(hello_opencv apps/hello_opencv.cpp ${opencv_concepts_SRCS})
+target_link_libraries(hello_opencv ${OpenCV_LIBS})
+target_link_libraries(test_visualizer ${OpenCV_LIBS})
+target_link_libraries(map2yaml ${OpenCV_LIBS})
