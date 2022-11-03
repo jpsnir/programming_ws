@@ -1,0 +1,18 @@
+dummy: red
+param_server_test:
+  dummy: blue
+rosdistro: 'noetic'
+roslaunch:
+  uris:
+    host_thor__35431: http://Thor:35431/
+rosversion: '1.15.14'
+run_id: b8a59010-594f-11ed-b0a8-bfb701bef0be
+ins_along_track: {
+            sample_rate: 100,
+            publish_topic: /sensor/imu/along_track
+}
+calibration: {
+            scale: [1, 1, 1],
+            bias_offset: [0, 0, 0]
+}
+
