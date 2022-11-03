@@ -1,0 +1,3 @@
+[submodule "math/project_euler_problems"]
+	path = math/project_euler_problems
+	url = git@github.com:jpsnir/project_euler_problems.git
