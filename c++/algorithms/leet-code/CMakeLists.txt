@@ -20,3 +20,6 @@ add_executable(valid_paranthesis
                ./src/valid_paranthesis.cpp)
 add_executable(merge_two_lists
                ./src/merge_sorted_lists.cpp)
+add_executable(remove_duplicates
+                ./src/remove_duplicates.cpp)
+
