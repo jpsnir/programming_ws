@@ -1,1 +1,7 @@
-./c++/language_concepts/build
+build/
+homework*
+*.zip
+bin/
+.md
+
+!README.md
