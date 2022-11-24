@@ -1,6 +1,7 @@
 project(leet-code)
 cmake_minimum_required(VERSION 3.1)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_STANDARD 17)
 find_package(Eigen3 REQUIRED)
 find_package(GTest REQUIRED)
 find_package(Boost REQUIRED)
@@ -23,3 +24,4 @@ add_executable(merge_two_lists
 add_executable(remove_duplicates
                 ./src/remove_duplicates.cpp)
 add_executable(problem_1 ./src/p1_two_sum.cpp)
+add_executable(problem_2 ./src/p2_add_two_numbers.cpp)
