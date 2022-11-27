@@ -10,4 +10,4 @@ endif()
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/chapter3_numbers)
 add_executable(heap_understanding ./src/memory_management/heap_understanding.cpp)
 add_executable(string_stream_use ./src/string_stream_use.cpp)
-
+add_executable(thread_callback_styles ./src/threads/thread_callback_styles.cpp)
