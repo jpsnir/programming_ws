@@ -1,3 +1,6 @@
 [submodule "math/project_euler_problems"]
 	path = math/project_euler_problems
 	url = git@github.com:jpsnir/project_euler_problems.git
+[submodule "deep_learning"]
+	path = deep_learning
+	url = git@github.com:jpsnir/deep_learning.git
