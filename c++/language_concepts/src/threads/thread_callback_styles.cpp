@@ -76,6 +76,7 @@ int main() {
 
   std::thread static_method_thread(&ThreadCallback::threadCallbackfunc1);
 
+  // todo passing parameters to thread.
 
   main_thread_method(); // simulates some process for few seconds
 
