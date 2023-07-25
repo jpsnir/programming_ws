@@ -13,4 +13,5 @@ add_executable(heap_understanding ./src/memory_management/heap_understanding.cpp
 add_executable(string_stream_use ./src/string_stream_use.cpp)
 add_executable(thread_callback_styles ./src/threads/thread_callback_styles.cpp)
 add_executable(string_split ./src/string_split.cpp)
+add_executable(stl_datastructures ./src/stl_datastructures.cpp)
 target_link_libraries(thread_callback_styles Threads::Threads)
