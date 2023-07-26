@@ -10,6 +10,7 @@ int main(int argc, char* argv[]){
 /* Stack in STL is a template container
  * We can use any data type to store that as stack.
  * This example uses integers
+ * LIFO datastructure
  */
 void implement_stack(){
     std::stack<int> integer_stack;

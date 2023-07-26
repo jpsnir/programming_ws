@@ -26,3 +26,4 @@ add_executable(remove_duplicates
 add_executable(problem_1 ./src/p1_two_sum.cpp)
 add_executable(problem_2 ./src/p2_add_two_numbers.cpp)
 add_executable(reverse_stack_recursion ./src/stack_reverse.cpp)
+add_executable(mergable_stack ./src/mergable_stack.cpp)
