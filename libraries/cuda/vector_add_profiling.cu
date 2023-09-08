@@ -10,10 +10,10 @@ void add_on_cpu(int n, float *x, float *y){
 
 // cuda kernel
 __global__ void add_on_gpu(int n, float *x, float *y){
-    int index = threadIdx.x;
-    int stride = blockDim.x;
-    for(int i=index; i < n; i+=stride){
-        y[i] = x[i] + y[i];
+    int t_index = blockIdx.x*blockDim.x + threadIdx.x;
+    int stride = blockDim.x*gridDim.x;
+    for(int data_index=t_index; data_index < n; data_index+=stride){
+        y[data_index] = x[data_index] + y[data_index];
     }
 }
 
@@ -24,9 +24,14 @@ int main(void){
     float *x = new float[N];
     float *y = new float[N];
     float *x_gpu, *y_gpu;
+
     cudaMallocManaged(&x_gpu, N*sizeof(float));
     cudaMallocManaged(&y_gpu,N*sizeof(float));
-
+    int value, dev_id=0;
+    cudaDeviceGetAttribute(&value, cudaDevAttrMultiProcessorCount, dev_id);
+    std::cout << "Number of streaming processors : " << value << std::endl;
+    cudaDeviceGetAttribute(&value, cudaDevAttrMaxThreadsPerBlock, dev_id);
+    std::cout << "Number of threads per block : " << value << std::endl;
     int blocksize = 256;
     int numblocks = N / blocksize;
     std::cout << " N = " << N << ", Number of blocks : " << numblocks << std::endl;
@@ -42,7 +47,8 @@ int main(void){
 
     // add elements
     add_on_cpu(N, x, y);
-    add_on_gpu<<<1, 256>>>(N, x_gpu, y_gpu);
+    cudaDeviceGetAttribute(&value, cudaDevAttrMultiProcessorCount, dev_id);
+    add_on_gpu<<<value*8, 512>>>(N, x_gpu, y_gpu);
     cudaDeviceSynchronize();
 
 
