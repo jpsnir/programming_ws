@@ -20,6 +20,15 @@ __global__ void  matrix_add_linear(float *a, float *b, float*c){
 
 }
 
+__global__ void matrix_kernel(float d_a[N][N], float d_b[N][N], float
+        d_c[N][N]){
+    int row = blockIdx.y*blockDim.y + threadIdx.y;
+    int col = blockIdx.x*blockDim.x + threadIdx.x;
+
+    if (row < N || col < N){
+
+    }
+}
 /* initialize a square diagnoal matrix with value provided.
    global matrices are passed as pointers.
  */
@@ -103,6 +112,10 @@ int main(void){
     size_t pitch;
     cudaMallocPitch(&d_ma, &pitch, cols*sizeof(float), rows);
     cudaMemcpy2D(d_ma,pitch,h_aa,cols*sizeof(float),cols*sizeof(float),rows,cudaMemcpyDeviceToHost);
+
+    float d_aa[N][N];
+    float d_bb[N][N];
+    float d_cc[N][N];
 
     exit(0);
 
