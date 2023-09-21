@@ -2,6 +2,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <string>
+#include <time.h>
 
 /*
  * Expected value of a function
@@ -20,6 +21,8 @@ int main(int argc, char* argv[]){
         exit(1);
     }
 
+    // use srand to get consistent results.
+    srand(time(0));
     double lower_b, upper_b;
     int iterations;
     std::string::size_type sz;
@@ -81,9 +84,7 @@ double monteCarloEstimateSTD(double low_b, double up_b, int iterations){
     double estimate = (up_b - low_b)*t_sum/iter;
     double exp = t_sum / iter;
     double exp_sq = t_sum_squared/ iter;
-    // TODO : why for 8 samples the variance is low,
-    // is there a bug. not able to figure it out.
-    printf(" exp: %f, exp_sq: %f,   Difference: %f \n", exp, exp_sq, exp_sq - pow(exp,2));
+    // printf(" exp: %f, exp_sq: %f,   Difference: %f \n", exp, exp_sq, exp_sq - pow(exp,2));
     double std_dev = (up_b - low_b)*pow((exp_sq - pow(exp,2))/iter, 0.5);
     printf("Estimate: %.4f, std_dev for %.1f -> %.1f is %f, (%i iterations)\n", estimate, low_b,
             up_b, std_dev, iterations);
