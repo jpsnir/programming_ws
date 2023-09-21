@@ -40,4 +40,5 @@ add_executable(prefix_to_infix ./src/prefix_to_infix.cpp)
 add_executable(network_occupancy_probability
     ./src/network_traffic_probability_distribution.cpp)
 add_executable(recursion_vs_loop ./src/recursion_vs_loop.cpp)
+add_executable(monte_carlo_integrator ./src/monte_carlo_integrator.cpp)
 target_link_libraries(network_occupancy_probability gnuplot_iostream)
