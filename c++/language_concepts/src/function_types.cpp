@@ -44,8 +44,20 @@ int main(){
     std::function<double(double)> square;
     square = compute_square;
 
-    // std function accepting
+    std::function<double(Exponent&, double)> f = &Exponent::square;
+    std::cout << " Square of 10 (std::function with class method): " << f(*exp_ptr, 10) << std::endl;
     std::cout << " Square of 10 (std::function) :" << square(10) << std::endl;
+
+
+    // std function accepting a lambda function
+    std::function<int(int)> factorial = [](int n){
+        int factorial = 1;
+        for (int i=1;i<=n;i++)
+            factorial = factorial*i;
+        return factorial;
+    };
+
+    std::cout << " The factorial of 10 (using std::function and lambda): " << factorial(10) << std::endl;
     delete exp_ptr;
     delete square_ptr;
 }
