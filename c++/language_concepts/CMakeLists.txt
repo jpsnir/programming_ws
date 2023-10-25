@@ -1,7 +1,7 @@
 project(language_concepts)
 cmake_minimum_required(VERSION 3.0.0)
-set(CMAKE_EXPORT_COMPILE_COMMANDS, ON)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/debug/)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/)
 find_package(Boost REQUIRED)
 find_package(GTest REQUIRED)
 if (GTEST_FOUND)
@@ -15,4 +15,13 @@ add_executable(thread_callback_styles ./src/threads/thread_callback_styles.cpp)
 add_executable(string_split ./src/string_split.cpp)
 add_executable(stl_datastructures ./src/stl_datastructures.cpp)
 add_executable(lambda_functions ./lambda_functions.cpp)
+add_executable(functional_example ./src/functional_example.cpp)
+add_executable(seed_random_number_generator
+    ./src/seed_random_number_generator.cpp)
+add_executable(seed_random_number_generator1
+    ./src/seed_random_number_generator1.cpp)
+add_executable(function_types
+    ./src/function_types.cpp)
+add_executable(functional_example_2 ./src/functional_example_2.cpp)
+add_executable(traits_example ./src/traits_example.cpp)
 target_link_libraries(thread_callback_styles Threads::Threads)
