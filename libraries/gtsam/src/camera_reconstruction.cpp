@@ -1,7 +1,6 @@
-#include <iostream>
-#include <cstdio>
 #include <SFMdata.h>
 #include <cmath>
+#include <cstdio>
 #include <gtsam/base/Matrix.h>
 #include <gtsam/base/Vector.h>
 #include <gtsam/geometry/Cal3_S2.h>
@@ -12,11 +11,14 @@
 #include <gtsam/inference/ISAM.h>
 #include <gtsam/inference/Symbol.h>
 #include <gtsam/linear/NoiseModel.h>
+#include <gtsam/nonlinear/DoglegOptimizer.h>
 #include <gtsam/nonlinear/NonlinearFactor.h>
 #include <gtsam/nonlinear/NonlinearFactorGraph.h>
 #include <gtsam/nonlinear/Values.h>
 #include <gtsam/slam/PriorFactor.h>
 #include <gtsam/slam/ProjectionFactor.h>
+#include <iostream>
+
 #include <vector>
 #define R 30.0f  // m
 #define FX 60.0f // pixels
@@ -131,7 +133,8 @@ int main() {
 
   gtsam::PinholeCamera<gtsam::Cal3_S2> camera(sfm_example_poses[0], *K);
   gtsam::Pose3 cam_pose = sfm_example_poses[0];
-  auto projector_lambda = [&camera, &cam_pose, &K](std::vector<gtsam::Point3> &landmarks) {
+  auto projector_lambda = [&camera, &cam_pose,
+                           &K](std::vector<gtsam::Point3> &landmarks) {
     for (int pt_ctr = 0; pt_ctr < landmarks.size(); pt_ctr++) {
       gtsam::Point2 projected_pt = camera.project(landmarks[pt_ctr]);
       print_string("projected points");
@@ -139,16 +142,14 @@ int main() {
       project_points(landmarks[pt_ctr], cam_pose, K);
     }
   };
-  print_string("Cube points projection");
-  projector_lambda(sfm_example_points);
-  print_string("XZ plane points projection");
-  projector_lambda(landmarks);
-
-
-
+//  print_string("Cube points projection");
+//  projector_lambda(sfm_example_points);
+//  print_string("XZ plane points projection");
+//  projector_lambda(landmarks);
+//
   for (int i = 0; i < sfm_example_poses.size(); i++) {
     gtsam::PinholeCamera<gtsam::Cal3_S2> camera(sfm_example_poses[i], *K);
-    for (int j = 0; j < landmarks.size(); j++) {
+    for (int j = 0; j < sfm_example_points.size(); j++) {
       gtsam::Point2 projected_pt = camera.project(sfm_example_points[j]);
       graph.emplace_shared<gtsam::GenericProjectionFactor<
           gtsam::Pose3, gtsam::Point3, gtsam::Cal3_S2>>(
@@ -157,20 +158,27 @@ int main() {
     }
   }
 
-   auto landmarkNoise = gtsam::noiseModel::Isotropic::Sigma(3, 0.1);
-   graph.addPrior(gtsam::Symbol('l', 0), landmarks[0]);
-   graph.print("Factor graph:\n");
+  auto landmarkNoise = gtsam::noiseModel::Isotropic::Sigma(3, 0.1);
+  graph.addPrior(gtsam::Symbol('l', 0), sfm_example_points[0], landmarkNoise);
+  graph.print("Factor graph:\n");
 
-   using namespace gtsam;
-   gtsam::Values initialEstimate;
-   for (int i = 0; i < cam_poses.size(); i++) {
-     auto corrupted_pose = cam_poses[i].compose(
-         Pose3(Rot3::RzRyRx(-0.1, 0.2, 0.25), Point3(0.05, -0.10, 0.20)));
-     initialEstimate.insert(Symbol('x', i), corrupted_pose);
-   }
-   for (int j = 0; j < landmarks.size(); j++) {
-     Point3 corrupted_point = landmarks[j] + Point3(-0.25, 0.20, 0.15);
-     initialEstimate.insert<Point3>(Symbol('l', j), corrupted_point);
-   }
-   initialEstimate.print("Initial Estimates:\n");
+  gtsam::Values initialEstimate;
+  for (int i = 0; i < sfm_example_poses.size(); i++) {
+    auto corrupted_pose = sfm_example_poses[i].compose(
+        gtsam::Pose3(gtsam::Rot3::Rodrigues(-0.1, 0.2, 0.25), gtsam::Point3(0.05, -0.10, 0.20)));
+    initialEstimate.insert(gtsam::Symbol('x', i), corrupted_pose);
+  }
+  for (int j = 0; j < sfm_example_points.size(); j++) {
+      gtsam::Point3 corrupted_point = sfm_example_points[j] + gtsam::Point3(-0.25, 0.20, 0.15);
+    initialEstimate.insert<gtsam::Point3>(gtsam::Symbol('l', j), corrupted_point);
+  }
+  initialEstimate.print("Initial Estimates:\n");
+
+  initialEstimate.at(gtsam::Symbol('l',0));
+  /* Optimize using Dogleg Optimizer
+   */
+  gtsam::Values result = gtsam::DoglegOptimizer(graph, initialEstimate).optimize();
+  result.print("Final results : \n");
+  std::cout << " initial error = " << graph.error(initialEstimate) << std::endl;
+  std::cout << " final error = " << graph.error(result) << std::endl;
 }
