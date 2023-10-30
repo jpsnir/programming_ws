@@ -42,4 +42,5 @@ add_executable(network_occupancy_probability
 add_executable(recursion_vs_loop ./src/recursion_vs_loop.cpp)
 add_executable(monte_carlo_integrator ./src/monte_carlo_integrator.cpp)
 add_executable(rk4_integration ./src/rk4_method.cpp)
+add_executable(tree_ds ./src/tree_ds.cpp)
 target_link_libraries(network_occupancy_probability gnuplot_iostream)
