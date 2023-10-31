@@ -11,9 +11,8 @@
 /*
  * The class describes how to construct a tree
  * The definition of each node is given and associated operations are coded.
- * We first implement a simple integer datatype based tree to illustrate
- * fundamental concepts first.
- * But after this we will show the template programming concepts as well.
+ * We use template programming here to make the tree generalize for different
+ * datatypes.
  */
 
 /* Tree node of type int
@@ -44,18 +43,14 @@ public:
             std::cout << "child = " << i << " - " << output << std::endl;
         }
     }
-
-    void insert_node(const TreeNode *node);
-    void find_data_node(const int data);
 };
-
 
 
 // binary tree has 2 child nodes, so each treeNode(data, 2)
 // Ternary tree has 3 child nodes, so each treeNode is defined by (data, 3)
-// Any tree is basically knowing the location of the root node.
-// Due to recursive nature of the trees, below any node there can be another
-// tree.
+//
+//
+//
 int main(){
     TreeNode* root= new TreeNode(10, 2);
     std::cout << " Before assigning childre " << std::endl;
