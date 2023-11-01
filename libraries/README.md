@@ -5,3 +5,4 @@
 # Links
 - [Computer Algebra
     Systems](https://en.wikipedia.org/wiki/List_of_computer_algebra_systems)
+- [autopep8 error codes](https://pypi.org/project/autopep8/)
