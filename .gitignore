@@ -3,5 +3,7 @@ homework*
 *.zip
 bin/
 .md
-
+compile_commands.json
+*.rar
+*.img
 !README.md
