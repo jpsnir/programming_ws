@@ -6,4 +6,5 @@ bin/
 compile_commands.json
 *.rar
 *.img
+.ipynb_checkpoints*
 !README.md
