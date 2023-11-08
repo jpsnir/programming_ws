@@ -31,6 +31,10 @@ int min_using_recursion(int* array, int index){
     return min;
 }
 
+// need to pass length as parameter,
+// int array[] is equivalent to int * array
+// so the sizeof(array) will give the size of pointer and not the array.
+// using sizeof can be dangerous therefore.
 int find_max_iter(int array[],int  length){
     int maximum = 0;
     for (int i =0; i<length; i++){
