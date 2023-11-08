@@ -30,13 +30,24 @@ int min_using_recursion(int* array, int index){
     min = array[index] < min_subset ? array[index]: min_subset;
     return min;
 }
+
+int find_max_iter(int array[],int  length){
+    int maximum = 0;
+    for (int i =0; i<length; i++){
+        maximum = std::max(maximum, array[i]);
+    }
+    return maximum;
+}
 int main(){
     int numbers[]  = { 1,4,3,-5, -4, 8, 6,10,12,100};
     int length = sizeof(numbers)/sizeof(int);
+    std::cout << " Length of numbers array = " << length << std::endl;
     int max = max_using_recursion(numbers, length-1);
     printf("Maximum number = %d \n", max);
     int min = min_using_recursion(numbers, length-1);
     printf("Minimum number = %d \n", min);
+    max = find_max_iter(numbers, length);
+    printf("Max number = %d \n", max);
     return 0;
 
 }
