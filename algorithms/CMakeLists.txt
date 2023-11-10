@@ -48,4 +48,7 @@ add_executable(tree_depth ./src/trees/tree_depth.cpp)
 #add_executable(chair_allocation ./src/backtracking/allocate_chair_to_students.cpp)
 add_executable(min_max ./src/recursion/min_max.cpp)
 add_executable(compute_power ./src/recursion/power_number.cpp)
+add_executable(multistage_graph_cost ./src/dynamic_programming/multistage_graph.cpp)
+add_executable(fibonacci_memoization
+    ./src/dynamic_programming/fibonacci.cpp)
 target_link_libraries(network_occupancy_probability gnuplot_iostream)
