@@ -33,6 +33,11 @@ int main() {
     Eigen::VectorXd X;
     Eigen::VectorXd Y;
     Eigen::VectorXd E;
+
+    // This helps us to understand how we can use gtsam for vectorized
+    // operations
+    // The problem and noise models thinking in terms of gtsam classes
+    // will be helpful to write better code that exploits gtsam.
     Eigen::Matrix<double, 100, 1> d = Eigen::Matrix<double, 100, 1>::Ones();
     gtsam::SharedDiagonal dm = gtsam::noiseModel::Diagonal::Sigmas(d);
     sampler = gtsam::Sampler(dm);
@@ -45,6 +50,8 @@ int main() {
     }
     //Eigen::VectorXd X_(l_vec.data());
 
+    // trying to learn single statement operations and thinking
+    // with eigen in terms of vector operations
     std::cout << " Y = " << Y.segment(10, 20)
               << "\n ----------------- \n "
     //         << " X- = " << X_.segment(10, 20)
