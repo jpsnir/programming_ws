@@ -16,7 +16,7 @@ int main(){
     int N = 100;
     Eigen::VectorXd x, y, e;
     Eigen::Matrix<double, 100, 1> sigmas =  Eigen::Matrix<double, 100 ,1>::Ones();
-    Vector1 sigma = 0.1*Vector1::Ones(1);
+    Vector1 sigma = 0.5*Vector1::Ones(1);
     SharedDiagonal nModel = noiseModel::Diagonal::Sigmas(sigmas);
     Sampler sampler(nModel);
     e = sampler.sample();
@@ -34,16 +34,25 @@ int main(){
     int key  = 1;
     GaussianFactorGraph graph;
     Symbol s('x', 0);
+    Eigen::Matrix<double, 200,2> hessian_full;
+    Eigen::Matrix<double, 100 ,2> jacobian_full;
     for (int i = 0 ; i < N ; i++){
         Matrix12 A_i ;
         A_i << x[i], 1;
         Matrix22 AtA = A_i.transpose()*A_i;
+        jacobian_full.row(i) = A_i;
+
         JacobianFactor j(s, A_i, Vector1(y[i]),noiseModel::Diagonal::Sigmas(sigma));
         graph.add(j);
     }
     std::pair<Matrix, Vector> jac_full = graph.jacobian();
+    std::pair<Matrix, Vector> hessian_fg = graph.hessian();
     std::cout << "Size of jacobian: \n" << jac_full.first.size() << std::endl;
     std::cout << " value of jacobian : \n" << jac_full.first.topRows(10) << std::endl;
     std::cout << " value of b : \n" << jac_full.second.head(10) << std::endl;
-    std::cout << " Solution : \n" << graph.optimize() << std::endl;
+    std::cout << " Solution : \n" << graph.optimizeDensely() << std::endl;
+    std::cout << " value of constructed jacobian : \n" << jacobian_full.topRows(10) << std::endl;
+    std::cout << " Solution (manual) : \n "
+              << (jacobian_full.transpose()*jacobian_full).inverse()*jacobian_full.transpose()*y
+              << std::endl;
 }
