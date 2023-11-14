@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.10)
+project(ceres_examples)
+set(EXPORT_COMPILE_COMMANDS_JSON ON)
+find_package(Ceres REQUIRED)
+if(Ceres_FOUND)
+    message(STATUS "Ceres library found: ${Ceres_LIBRARIES}")
+endif()
+
+add_executable(hello_ceres ./src/hello_ceres.cpp)
+target_link_libraries(hello_ceres ceres)
