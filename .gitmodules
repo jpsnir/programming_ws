@@ -4,3 +4,12 @@
 [submodule "deep_learning"]
 	path = deep_learning
 	url = git@github.com:jpsnir/deep_learning.git
+[submodule "libraries/lie_algebra_examples/cpp_filter"]
+	path = libraries/lie_algebra_examples/cpp_filter
+	url = https://github.com/aalbaali/cpp_filter.git
+[submodule "libraries/lie_algebra_examples/kalman"]
+	path = libraries/lie_algebra_examples/kalman
+	url = https://github.com/mherb/kalman.git
+[submodule "libraries/lie_algebra_examples/ukfm"]
+	path = libraries/lie_algebra_examples/ukfm
+	url = https://github.com/CAOR-MINES-ParisTech/ukfm.git

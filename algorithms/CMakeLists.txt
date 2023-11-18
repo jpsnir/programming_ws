@@ -51,4 +51,8 @@ add_executable(compute_power ./src/recursion/power_number.cpp)
 add_executable(multistage_graph_cost ./src/dynamic_programming/multistage_graph.cpp)
 add_executable(fibonacci_memoization
     ./src/dynamic_programming/fibonacci.cpp)
+add_executable(queue_using_array
+    ./src/queue/queue_using_arrays.cpp)
+add_executable(queue_using_list
+    ./src/queue/queue_using_linked_list.cpp)
 target_link_libraries(network_occupancy_probability gnuplot_iostream)
