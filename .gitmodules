@@ -4,3 +4,6 @@
 [submodule "deep_learning"]
 	path = deep_learning
 	url = git@github.com:jpsnir/deep_learning.git
+[submodule "libraries/lie_algebra_examples"]
+	path = libraries/lie_algebra_examples
+	url = git@github.com:jpsnir/lie_algebra_examples.git
