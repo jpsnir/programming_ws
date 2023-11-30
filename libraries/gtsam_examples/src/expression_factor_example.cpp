@@ -1,28 +1,8 @@
-/* ----------------------------------------------------------------------------
-
- * GTSAM Copyright 2010, Georgia Tech Research Corporation,
- * Atlanta, Georgia 30332-0415
- * All Rights Reserved
- * Authors: Frank Dellaert, et al. (see THANKS for the full author list)
-
- * See LICENSE for the license information
-
- * -------------------------------------------------------------------------- */
-
-/**
- * @file    SFMExampleExpressions.cpp
- * @brief   A structure-from-motion example done with Expressions
- * @author  Frank Dellaert
- * @author  Duy-Nguyen Ta
- * @date    October 1, 2014
+/* Expression factors have automatic differentian ability.
+ * Example to show how they can be used.
+ * author : jagatpreet
+ *
  */
-
-/**
- * This is the Expression version of SFMExample
- * See detailed description of headers there, this focuses on explaining the AD part
- */
-
-// The two new headers that allow using our Automatic Differentiation Expression framework
 #include <gtsam/slam/expressions.h>
 #include <gtsam/nonlinear/ExpressionFactorGraph.h>
 
@@ -97,3 +77,59 @@ int main(int argc, char* argv[]) {
 
   return 0;
 }
+//#include<SFMdata.h>
+//#include<gtsam/geometry/Point2.h>
+//#include<gtsam/nonlinear/DoglegOptimizer.h>
+//#include<gtsam/nonlinear/Values.h>
+//#include<gtsam/inference/Symbol.h>
+//#include<gtsam/geometry/Cal3_S2.h>
+//#include<gtsam/geometry/Pose3.h>
+//#include<gtsam/geometry/Pose2.h>
+//#include <vector>
+//#include <gtsam/slam/expressions.h>
+//#include <gtsam/nonlinear/ExpressionFactorGraph.h>
+//
+//using namespace gtsam;
+//using namespace std;
+//using namespace noiseModel;
+//
+//
+//int main(int argc, char* argv[]){
+//    gtsam::Cal3_S2 K(50.0, 50.0, 0.0, 50.0, 50.0);
+//    noiseModel::Isotropic::shared_ptr mNoise = noiseModel::Isotropic::Sigma(2, 1.0);
+//    vector<gtsam::Point3> points = createPoints();
+//    vector<gtsam::Pose3> poses = createPoses();
+//
+//    ExpressionFactorGraph graph;
+//    Vector6 sigmas;
+//    sigmas << Vector3(0.3, 0.3, 0.3) , Vector(0.1, 0.1, 0.1);
+//    noiseModel::Diagonal::shared_ptr poseNoise = noiseModel::Diagonal::Sigmas(sigmas);
+//
+//    gtsam::Pose3_ x0('x', 0);
+//    graph.addExpressionFactor(x0, poses[0], poseNoise);
+//
+//    Cal3_S2_ cK(K);
+//    for(size_t i = 0; i < poses.size(); i++){
+//        Pose3_ x('x', i);
+//        gtsam::PinholeCamera<Cal3_S2> camera(poses[i], K);
+//        for (size_t j=0; j < points.size(); i++){
+//            gtsam::Point2 measurement = camera.project(points[j]);
+//            Point3_ p('l', j);
+//            Point2_ prediction = gtsam::uncalibrate(
+//                    cK, gtsam::project(gtsam::transformTo(x, p))
+//                    );
+//            graph.addExpressionFactor(prediction, measurement, mNoise);
+//        }
+//    }
+//    Values initial;
+//    Pose3 delta(Rot3::Rodrigues(-0.1, 0.2, 0.25), Point3(0.05, -0.10, 0.20));
+//    for(size_t i = 0; i < poses.size(); i++)
+//        initial.insert(Symbol('x', i),poses[i].compose(delta));
+//    for(size_t j=0; j < points.size(); j++)
+//        initial.insert(Symbol('l',j), points[j] + Point3(-0.25, 0.20, 0.15));
+//
+//    std::cout <<"initial error \n" << graph.error(initial) << std::endl;
+//
+//    Values result = DoglegOptimizer(graph, initial).optimize();
+//    std::cout << " final error = " << graph.error(result) << std::endl;
+//}
