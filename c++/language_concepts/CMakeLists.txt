@@ -24,4 +24,7 @@ add_executable(function_types
     ./src/function_types.cpp)
 add_executable(functional_example_2 ./src/functional_example_2.cpp)
 add_executable(traits_example ./src/traits_example.cpp)
+add_executable(destructors ./src/destructor.cpp)
+add_executable(inheritance ./src/inheritance.cpp)
+add_executable(virtual_funcs ./src/virtual_funcs.cpp)
 target_link_libraries(thread_callback_styles Threads::Threads)
