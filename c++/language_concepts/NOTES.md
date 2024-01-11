@@ -72,3 +72,11 @@
    size need not be specified.
 
 # strings
+1. normal strings uses 1-byte char - 8bit length for char.
+2. wide strings uses 2-byte chars. 
+3. string is an array of chars.
+4. strings are generally non-mutable.
+5. dont pass strings with a copy operation, but with a reference. `std::string`
+   objects should be passed with `const std::string &` reference. 
+6. declaring string as a `const` is good. The strings are stored in a read only
+   memory.
