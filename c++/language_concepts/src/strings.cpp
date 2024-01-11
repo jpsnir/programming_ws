@@ -24,4 +24,14 @@ int main(){
     std::cout << "address in main : " << &name3 << std::endl;
     print(name3);
 
+    // undefined behavior
+    char* n = "jagat";
+    std::cout << n << std::endl;
+    // doing this creates segmentation fault, we are accessing read only memory.
+    n[2] = 'k';
+
+    const wchar_t* n1 = L"jagat";
+
+    std::cout << n << std::endl;
+
 }
