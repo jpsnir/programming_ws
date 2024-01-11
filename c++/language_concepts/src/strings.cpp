@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+void print(const std::string& s){
+    std::cout << &s << std::endl;
+}
 int main(){
     // c style string
     // strings are generally im-mutable
@@ -18,4 +21,7 @@ int main(){
     std::cout << name3 << std::endl;
     bool contains = name3.find("ga") != std::string::npos;
     std::cout << " contains ja: " << contains << std::endl;
+    std::cout << "address in main : " << &name3 << std::endl;
+    print(name3);
+
 }
