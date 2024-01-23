@@ -16,3 +16,6 @@
 [submodule "robot-arm"]
 	path = robot-arm
 	url = ./robot-arm
+[submodule "libraries/cuda_examples/CUDALibrarySamples"]
+	path = libraries/cuda_examples/CUDALibrarySamples
+	url = https://github.com/NVIDIA/CUDALibrarySamples.git
