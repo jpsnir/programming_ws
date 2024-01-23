@@ -1,6 +1,8 @@
 #include <chrono>
 #include <iostream>
 #include <map>
+#include <vector>
+
 using namespace std;
 // top down approach
 int max_rob_1(int nums[], int state, std::map<int, long> &memo) {
@@ -30,6 +32,29 @@ int max_rob_2(int nums[], int len) {
 
   return sum_rob[len - 1];
 }
+int max_rob(vector<int>& nums, int state, std::map<int, long> &memo){
+        if (state == 0){
+            return nums[0];
+        }
+
+        if (state == 1){
+            return max(nums[0], nums[1]);
+        }
+
+        if (memo.find(state) != memo.end()){
+            return memo[state];
+        }
+
+        memo[state] = max(max_rob(nums, state - 1, memo),
+                          max_rob(nums, state - 2, memo) + nums[state]);
+
+        return memo[state];
+
+    }
+int rob(vector<int>& nums) {
+        std::map<int, long> memo;
+        return max_rob(nums, nums.size() - 1, memo);
+}
 int main() {
   int nums[] = {2, 7, 9, 3, 1};
   std::map<int, long> memo;
@@ -37,4 +62,6 @@ int main() {
   std::cout << "maximum loot - (top - down approach) = " << result << std::endl;
   result = max_rob_2(nums, 5);
   std::cout << "maximum loot - (bottom - up approach) = " << result << std::endl;
+  std::vector<int> nums_v(nums, nums + sizeof(nums)/sizeof(int));
+  std::cout << "maximum loot - vector - (top - down approach) = " << rob(nums_v) << std::endl;
 }
