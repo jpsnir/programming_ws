@@ -56,4 +56,6 @@ add_executable(queue_using_array
 add_executable(queue_using_list
     ./src/queue/queue_using_linked_list.cpp)
 add_executable(flood_fill ./src/trees/flood_fill.cpp)
+add_executable(climbing_stairs ./src/dynamic_programming/climbing_stairs.cpp)
+add_executable(maximum_rob ./src/dynamic_programming/house_robber.cpp)
 target_link_libraries(network_occupancy_probability gnuplot_iostream)
