@@ -8,14 +8,26 @@
 #include<eigen3/Eigen/Core>
 
 using namespace std;
-int main(){
-    cout << " Using cuda for performing matrix and linear algebra operations" <<
+int main(int argc, char * argv[]){
+
+    cout << " Creating an eigen template for performing matrix and linear algebra operations" <<
         endl;
+    if (argc != 4){
+        cout << " Number of arguments" << argc << endl;
+        cout << "usage : ./linear_algebra_eigen <N> <m> <c>" <<endl;
+        exit(0);
+    }
 
     // number of points
-    const int N  = 10000;
+    //
+    cout << " NUmber of integers: " << *(argv + 1) << endl;
+
+    std::string::size_type sz;
+    static const int N  = std::stoi(std::string(*(argv + 1)), &sz);
+    // number of points
     // line parameters
-    float m = 2.0f, c = 2.0f;
+    const float m = std::stoi(std::string(*(argv + 2)), &sz);
+    const float c = std::stoi(std::string(*(argv + 3)), &sz);
     // noise parameters
     float noise_mean = 0;
     float noise_std = 0.1f;
@@ -45,7 +57,48 @@ int main(){
     // no new memory is allocated. All these methods are
     // just mapping the std vector to be used with
     // eigen interface.
-    Eigen::Map<Eigen::VectorXf> X3(x.data(), 100);
-    cout << " first 10 values: " << X3.head(10) << std::endl;
-    // new array
+    Eigen::VectorXf X = Eigen::Map<Eigen::VectorXf>(x.data(), N);
+    Eigen::VectorXf Y = Eigen::Map<Eigen::VectorXf>(y.data(), N);
+    Eigen::MatrixXf A(N, 2), b(N, 1);
+
+    // comma initialization
+    A  << X, Eigen::VectorXf::Ones(N);
+
+    // comma initialization
+    b << Y;
+
+    // Dense matrix computations:
+    Eigen::VectorXf p_estimate = A.colPivHouseholderQr().solve(b);
+    Eigen::MatrixXf A1 = A;
+    Eigen::ColPivHouseholderQR<Eigen::MatrixXf> dec(A);
+    Eigen::VectorXf est = dec.solve(b);
+    cout << " Residual from the solution: \n" << (A1*est - b).norm() << endl;
+    cout << " Solution to the regression problem: \n" << p_estimate << endl;
+   // p_estimate = A.partialPivLu().solve(b);
+   // cout << " Solution to the regression problem (PartialPiv LU): \n"
+    //    << p_estimate << endl;
+    p_estimate = A.fullPivLu().solve(b) ;
+    cout << " Solution to the regression problem (fullPiv LU): \n"
+        << p_estimate << endl;
+    p_estimate = A.householderQr().solve(b);
+    cout << " Solution to the regression problem (Householder QR): \n"
+         << p_estimate << endl;
+    p_estimate = A.colPivHouseholderQr().solve(b);
+    cout << " Solution to the regression problem (Col Piv Householder QR): \n"
+         << p_estimate << endl;
+
+    p_estimate = A.fullPivHouseholderQr().solve(b);
+    cout << " Solution to the regression problem (full piv householder QR): \n"
+         << p_estimate  << endl;
+
+    p_estimate = A.completeOrthogonalDecomposition().solve(b);
+    cout << " Solution to the regression problem (complete orthogonal decomposition): \n"
+         << p_estimate << endl;
+
+    // Eigen values:
+    // Eigen values exist only for square matrices.
+    // So use A^T.A
+    Eigen::SelfAdjointEigenSolver<Eigen::MatrixXf> eigensolver(A.transpose()*A);
+    if (eigensolver.info() != Eigen::Success) abort();
+    cout << " Eigen values of A are : \n" << eigensolver.eigenvalues() << endl;
 }
