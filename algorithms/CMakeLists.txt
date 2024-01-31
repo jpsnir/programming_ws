@@ -61,3 +61,7 @@ add_executable(maximum_rob ./src/dynamic_programming/house_robber.cpp)
 add_executable(minimum_climbing_cost
     ./src/dynamic_programming/min_climbing_cost.cpp)
 target_link_libraries(network_occupancy_probability gnuplot_iostream)
+
+
+add_executable(graph_bfs ./src/graph_bfs.cpp)
+add_executable(graph_node_level ./src/graph_node_level.cpp)
