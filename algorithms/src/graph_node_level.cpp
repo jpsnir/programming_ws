@@ -60,7 +60,7 @@ public:
               if (node == search_node) {
                 cout << " search node found " << node << endl;
                 not_found = false;
-                return level;
+                goto loop_exit;
               }
               count++;
               //cout << node << ",";
@@ -76,6 +76,7 @@ public:
             level++;
             // level complete.
         }
+    loop_exit:
         if (not_found)
             return -1;
         else
