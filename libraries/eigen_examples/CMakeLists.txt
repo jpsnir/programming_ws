@@ -21,3 +21,6 @@ target_link_libraries(interface_with_buffer Eigen3::Eigen)
 
 add_executable(test_eigen_geometry ./src/test_eigen_geometry.cpp)
 target_link_libraries(test_eigen_geometry GTest::Main)
+
+add_executable(eigen_basic_ops ./src/eigen_basic_ops.cpp)
+target_link_libraries(eigen_basic_ops Eigen3::Eigen)
