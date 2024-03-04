@@ -13,6 +13,7 @@
 [submodule "libraries/gtsam_examples/gtsam-quadrics"]
 	path = libraries/gtsam-quadrics
 	url = https://github.com/qcr/gtsam-quadrics.git
+    ignore = dirty
 [submodule "robot-arm"]
 	path = robot-arm
 	url = ./robot-arm
