@@ -1,4 +1,7 @@
 build/
+*.pkl
+*.pt
+__pycache__
 homework*
 *.zip
 bin/
