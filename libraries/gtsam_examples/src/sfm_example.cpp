@@ -57,6 +57,7 @@
 #include <gtsam/nonlinear/Marginals.h>
 
 #include <vector>
+#include<string>
 
 using namespace std;
 using namespace gtsam;
@@ -138,6 +139,7 @@ int main(int argc, char *argv[]) {
   marginals.print("Marginal information: \n");
   auto lin_pt = graph.linearize(result);
   graph.printErrors(result);
-  graph.saveGraph("graph.dot",result);
+  std::string filename = "graph.dot";
+  //graph.saveGraph(filename);
   return 0;
 }
