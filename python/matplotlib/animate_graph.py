@@ -28,15 +28,18 @@ def edges(adj_matrix):
         m[:i, :i] = temp
         rows, cols = np.where(temp_new - m == 1)
         edges = zip(rows.tolist(), cols.tolist())
-        yield edges
+        weights = 5 / i
+        yield edges, weights
 
 
-def update(edges):
+def update(vals):
+    edges = vals[0]
+    weights = vals[1]
     G.add_edges_from(edges)
     # Draw the updated graph
     ax.clear()
     pos = nx.circular_layout(G)
-    nx.draw(G, pos, ax=ax, with_labels=True)
+    nx.draw(G, pos, ax=ax, with_labels=True, width=weights)
     ax.set_title('Frame')
 
 
