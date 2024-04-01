@@ -26,3 +26,12 @@
 [submodule "LeetCode"]
 	path = LeetCode
 	url = https://github.com/tanyarajhans/LeetCode.git
+[submodule "visual-slam-roadmap"]
+	path = visual-slam-roadmap
+	url = https://github.com/changh95/visual-slam-roadmap.git
+[submodule "good_repositories/Examples"]
+	path = good_repositories/Examples
+	url = https://github.com/daviddoria/Examples.git
+[submodule "good_repositories/leetcode"]
+	path = good_repositories/leetcode
+	url = https://github.com/neetcode-gh/leetcode.git
