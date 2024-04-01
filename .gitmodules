@@ -20,3 +20,9 @@
 [submodule "libraries/cuda_examples/CUDALibrarySamples"]
 	path = libraries/cuda_examples/CUDALibrarySamples
 	url = https://github.com/NVIDIA/CUDALibrarySamples.git
+[submodule "leetcode-patterns"]
+	path = leetcode-patterns
+	url = https://github.com/seanprashad/leetcode-patterns.git
+[submodule "LeetCode"]
+	path = LeetCode
+	url = https://github.com/tanyarajhans/LeetCode.git
