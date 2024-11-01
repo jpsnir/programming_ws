@@ -1,6 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <limits>
+#include <memory>
+#include <cstdint>
+
 // Credits: lisyarus blog
 
 struct point{
@@ -42,7 +45,117 @@ struct box{
     }
 };
 
+struct node{
+    std::unique_ptr<node> children[2][2];
+};
 
+struct quadtree{
+    box bbox;
+    std::unique_ptr<node> root;
+};
+
+
+using node_id = std::uint32_t;
+static constexpr node_id null = node_id(-1);
+struct node{
+    node_id children[2][2]{
+        {null, null},
+        {null, null}
+    };
+};
+
+struct quadtree{
+    box bbox;
+    node_id root;
+    std::vector<node> nodes;
+};
+
+template<typename Iterator>
+node_id build_impl(quadtree &tree, box const &bbox, Iterator begin, Iterator end){
+    if(begin == end)
+        return null;
+    node_id result = tree.nodes.size()
+    tree.nodes.emplace_back();
+    if (begin + 1 == end) return result;
+    point center = middle(bbox.min, bbox.max);
+    Iterator split_y = std::partition(
+        begin,
+        end,
+        [center](point const & p){
+            return p.y < center.y;
+        }
+    );
+
+    Iterator split_x_lower = std::partition(
+        begin,
+        split_y,
+        [center](point const &p){
+            return p.x < center.x;
+        }
+    );
+
+
+    Iterator split_x_upper = std::partition(
+        split_y,
+        end,
+        [center](point const &p){
+            return p.x < center.x;
+        }
+    );
+
+    tree.nodes[result].children[0][0] = 
+        build_impl(
+            tree,
+            {
+                bbox.min,
+                center
+            },
+            begin, 
+            split_x_lower
+        );
+
+    tree.nodes[result].children[0][1] = 
+        build_impl(
+            tree,
+            {
+                {center.x, bbox.min.y},
+                {bbox.max.x, center.y}
+            },
+            split_x_lower, 
+            split_y
+        );
+    
+    tree.nodes[result].children[1][0] =
+        build_impl(
+            tree,
+            {
+                {bbox.min.x, center.y},
+                {center.x, bbox.max.y}
+            },
+            split_y, 
+            split_x_upper
+        );
+
+    tree.nodes[result].children[1][1] =
+        build_impl(
+            tree,
+            {
+                center,
+                bbox.max
+            },
+            split_x_upper, 
+            end
+        );
+    
+    return result;
+}
+
+template <typename Iterator>
+quadtree build(Iterator begin, Iterator end){
+    quadtree result;
+    result.root = build_impl(result, bbox(begin, end), begin, end);
+    return result;
+}
 
 
 
